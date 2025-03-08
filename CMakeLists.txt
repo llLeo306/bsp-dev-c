@@ -22,7 +22,7 @@ endif()
 set(CMAKE_PROJECT_NAME DevC)
 
 # Include toolchain file
-include("cmake/gcc-arm-none-eabi.cmake")
+include("cmake/mcu_stm32f4.cmake")
 
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
