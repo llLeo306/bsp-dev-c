@@ -18,8 +18,11 @@ set(CMAKE_ASM_FLAGS
     "${CPU_FLAGS} -x assembler-with-cpp"
     CACHE INTERNAL "" FORCE)
 
+# Linker Flag
+set(LINKER_SCRIPT ${CMAKE_CURRENT_SOURCE_DIR}/stm32f407ighx_flash.ld)
+
 set(CMAKE_EXE_LINKER_FLAGS
-    "--specs=nano.specs --specs=nosys.specs -Wl,--cref,--gc-sections,--print-memory-usage,-Map=${CMAKE_PROJECT_NAME}.map"
+    "-T${LINKER_SCRIPT} --specs=nano.specs --specs=nosys.specs -Wl,--cref,--gc-sections,--print-memory-usage,-Map=${CMAKE_PROJECT_NAME}.map"
     CACHE INTERNAL "" FORCE)
 
 # 处理器相关宏定义

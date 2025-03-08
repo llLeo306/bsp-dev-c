@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.22)
 
+add_compile_options(-Wno-unused-parameter)
+
 #
 # This file is generated only once,
 # and is not re-generated if converter is called multiple times.
@@ -11,7 +13,8 @@ cmake_minimum_required(VERSION 3.22)
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS ON)
-
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Define the build type
 if(NOT CMAKE_BUILD_TYPE)
@@ -19,7 +22,7 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 # Set the project name
-set(CMAKE_PROJECT_NAME DevC)
+set(CMAKE_PROJECT_NAME STM32103RC_LIBXR)
 
 # Include toolchain file
 include("cmake/mcu_stm32f4.cmake")
@@ -27,12 +30,16 @@ include("cmake/mcu_stm32f4.cmake")
 # Enable compile command to ease indexing with e.g. clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
 
-# Enable CMake support for ASM and C languages
-enable_language(C ASM)
-
 # Core project settings
 project(${CMAKE_PROJECT_NAME})
+
+# Enable CMake support for ASM and C languages
+enable_language(C CXX ASM)
+
+
 message("Build type: " ${CMAKE_BUILD_TYPE})
+
+# add_compile_options(-Og)
 
 # Create an executable object type
 add_executable(${CMAKE_PROJECT_NAME})
@@ -50,14 +57,30 @@ target_sources(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user sources here
 )
 
-# Add include paths
-target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
-    # Add user defined include paths
-)
-
 # Add project symbols (macros)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
     # Add user defined symbols
+)
+
+
+# LibXR
+set(LIBXR_SYSTEM None)
+set(LIBXR_DRIVER st)
+add_subdirectory(libxr)
+target_link_libraries(
+    xr
+    stm32cubemx
+)
+
+target_include_directories(xr
+    PUBLIC $<TARGET_PROPERTY:stm32cubemx,INTERFACE_INCLUDE_DIRECTORIES>
+    PUBLIC Core/Inc
+)
+
+# Add include paths
+target_include_directories(${CMAKE_PROJECT_NAME} PRIVATE
+    # Add user defined include paths
+    PUBLIC $<TARGET_PROPERTY:xr,INTERFACE_INCLUDE_DIRECTORIES>
 )
 
 # Add linked libraries
@@ -65,4 +88,13 @@ target_link_libraries(${CMAKE_PROJECT_NAME}
     stm32cubemx
 
     # Add user defined libraries
+    xr
+)
+
+target_sources(${CMAKE_PROJECT_NAME}
+    PRIVATE User/app_main.cpp
+)
+
+target_include_directories(stm32cubemx INTERFACE
+    User
 )
