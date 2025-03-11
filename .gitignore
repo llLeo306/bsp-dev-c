@@ -2,3 +2,4 @@ build/**
 .cache/**
 .history/**
 CMakeFiles/**
+DevC.jdebug.user

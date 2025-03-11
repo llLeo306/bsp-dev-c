@@ -74,7 +74,6 @@ void MX_TIM10_Init(void);
 void MX_USART1_UART_Init(void);
 void MX_USART6_UART_Init(void);
 void MX_TIM7_Init(void);
-void MX_IWDG_Init(void);
 
 /* USER CODE BEGIN EFP */
 
@@ -117,8 +116,6 @@ void MX_IWDG_Init(void);
 #define GYRO_INT_Pin GPIO_PIN_5
 #define GYRO_INT_GPIO_Port GPIOC
 #define GYRO_INT_EXTI_IRQn EXTI9_5_IRQn
-#define SWITCH_Pin GPIO_PIN_12
-#define SWITCH_GPIO_Port GPIOB
 #define GYRO_CS_Pin GPIO_PIN_0
 #define GYRO_CS_GPIO_Port GPIOB
 
