@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: build test
 
 on:
   push:
@@ -10,12 +10,15 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/xrobot-org/docker-image:main
+      options: --user 0
 
     steps:
     - uses: actions/checkout@v4
     - name: init submodule
       run: git submodule update --init --recursive
     - name: config cmake
-      run: cmake . -DDEV_C_TEST_BUILD=True -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja 
+      run: cmake . -DDEV_C_TEST_BUILD=True -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja
     - name: build
       run: cmake --build build
