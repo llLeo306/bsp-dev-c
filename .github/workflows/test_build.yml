@@ -17,7 +17,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: init submodule
-      run: git submodule update --init --recursive
+      run: git config --global --add safe.directory /__w/bsp-dev-c/bsp-dev-c && git submodule update --init --recursive
     - name: config cmake
       run: cmake . -DDEV_C_TEST_BUILD=True -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja
     - name: build
