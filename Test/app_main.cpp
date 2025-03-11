@@ -67,7 +67,8 @@ extern "C" void app_main(void) {
   RamFS ramfs("XRobot");
   Terminal terminal(ramfs);
 
-  auto terminal_task = Timer::CreatetTask(terminal.TaskFun, &terminal, 1000);
+  auto terminal_task = Timer::CreatetTask(terminal.TaskFun, &terminal, 10);
+  Timer::Add(terminal_task);
   Timer::Start(terminal_task);
 
   LibXR::STM32I2C ist8310(&hi2c3, ist8310_i2c_buff, 3);
