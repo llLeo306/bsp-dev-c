@@ -86,9 +86,9 @@ extern "C" void app_main(void) {
 
   LibXR::STM32ADC adc1(&hadc1, RawData(adc1_buff), adc1_channels, 3.3f);
 
-  LibXR::STM32Flash flash(0xC0000, 128 * 1024);
+  LibXR::STM32Flash flash(0xC0000, 128 * 1024, 4);
 
-  LibXR::DatabaseRawSequential database(flash, 256);
+  LibXR::DatabaseRaw<4> database(flash);
 
   pwm_buzzer.SetDutyCycle(0.02f);
   pwm_buzzer.SetConfig({.frequency = 262});

@@ -105,8 +105,8 @@ namespace LibXR {
 
 class STM32Flash : public Flash {
  public:
-  STM32Flash(size_t start_offset, size_t min_erase_size)
-      : Flash(min_erase_size,
+  STM32Flash(size_t start_offset, size_t min_erase_size, size_t min_write_size)
+      : Flash(min_erase_size, min_write_size,
               RawData(reinterpret_cast<void*>(FLASH_BASE + start_offset),
                       2 * min_erase_size)),
         start_offset_(start_offset),
