@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/xrobot-org/docker-image:main
+      image: ghcr.io/xrobot-org/docker-image-stm32:main
       options: --user 0
 
     steps:

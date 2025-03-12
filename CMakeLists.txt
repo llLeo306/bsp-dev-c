@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
-add_compile_options(-Wno-unused-parameter)
+message(CMAKE_TOOLCHAIN_FILE=${CMAKE_TOOLCHAIN_FILE})
+
+add_compile_options(-Wno-unused-parameter -Wno-deprecated-volatile)
 
 option(DEV_C_TEST_BUILD "Enable development C test build" OFF)
 
