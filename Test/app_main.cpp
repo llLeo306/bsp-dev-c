@@ -2,6 +2,7 @@
 #include "libxr.hpp"
 #include "main.h"
 #include "stm32_adc.hpp"
+#include "stm32_can.hpp"
 #include "stm32_flash.hpp"
 #include "stm32_gpio.hpp"
 #include "stm32_i2c.hpp"
@@ -106,8 +107,6 @@ extern "C" void app_main(void) {
 
   LibXR::STM32SPI bmi088_spi(&hspi1, bmi088_spi_buff[0], bmi088_spi_buff[1], 3);
 
-  // TODO: CAN1 & CAN2
-
   std::array<uint32_t, 2> adc1_channels = {ADC_CHANNEL_TEMPSENSOR,
                                            ADC_CHANNEL_VREFINT};
 
@@ -120,6 +119,9 @@ extern "C" void app_main(void) {
   LibXR::STM32Flash flash(0xC0000, 128 * 1024, 4);
 
   LibXR::DatabaseRaw<4> database(flash);
+
+  LibXR::STM32CAN can1(&hcan1, "can1", 10);
+  LibXR::STM32CAN can2(&hcan2, "can2", 10);
 
   pwm_buzzer.SetDutyCycle(0.02f);
   pwm_buzzer.SetConfig({.frequency = 262});
