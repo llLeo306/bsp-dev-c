@@ -17,6 +17,7 @@ extern TIM_HandleTypeDef htim3, htim4, htim5, htim10;
 extern SPI_HandleTypeDef hspi1;
 extern I2C_HandleTypeDef hi2c3;
 extern ADC_HandleTypeDef hadc1, hadc3;
+extern CAN_HandleTypeDef hcan1, hcan2;
 
 static uint8_t bmi088_spi_buff[2][24];
 static uint8_t ist8310_i2c_buff[24];
@@ -70,6 +71,36 @@ extern "C" void app_main(void) {
   auto terminal_task = Timer::CreatetTask(terminal.TaskFun, &terminal, 10);
   Timer::Add(terminal_task);
   Timer::Start(terminal_task);
+
+  pwm_b.SetConfig({
+      .frequency = 1000,
+  });
+  pwm_b.Enable();
+
+  void (*led_fun)(LibXR::STM32PWM* pwm) = [](LibXR::STM32PWM* pwm) {
+    static bool flag = false;
+    static uint32_t counter = 0;
+
+    if (flag && counter == 100) {
+      flag = false;
+    }
+
+    if (!flag && counter == 00) {
+      flag = true;
+    }
+
+    if (flag) {
+      counter++;
+    } else {
+      counter--;
+    }
+
+    pwm->SetDutyCycle(static_cast<float>(counter) / 100.0f);
+  };
+
+  auto led_task = Timer::CreatetTask(led_fun, &pwm_b, 5);
+  Timer::Add(led_task);
+  Timer::Start(led_task);
 
   LibXR::STM32I2C ist8310(&hi2c3, ist8310_i2c_buff, 3);
 
