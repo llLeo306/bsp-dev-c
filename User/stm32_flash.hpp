@@ -103,9 +103,10 @@ static uint32_t stm32_get_sector_size(uint32_t sector) {
 
 namespace LibXR {
 
-class STM32Flash : public Flash {
+class STM32F4Flash : public Flash {
  public:
-  STM32Flash(size_t start_offset, size_t min_erase_size, size_t min_write_size)
+  STM32F4Flash(size_t start_offset, size_t min_erase_size,
+               size_t min_write_size)
       : Flash(min_erase_size, min_write_size,
               RawData(reinterpret_cast<void*>(FLASH_BASE + start_offset),
                       2 * min_erase_size)),

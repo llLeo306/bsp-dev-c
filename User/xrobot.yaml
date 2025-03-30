@@ -1,0 +1,25 @@
+global_settings:
+  monitor_sleep_ms: 1000
+modules:
+- name: BlinkLED
+  constructor_args:
+    blink_cycle: 250
+- name: BMI088
+  constructor_args:
+    rotation:
+      w: 1.0
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    pid_param:
+      k: 0.15
+      p: 1.0
+      i: 0.1
+      d: 0.0
+      i_limit: 0.3
+      out_limit: 1.0
+      cycle: false
+    gyro_topic_name: bmi088_gyro
+    accl_topic_name: bmi088_accl
+    target_temperature: 45
+    task_stack_depth: 512

@@ -1,0 +1,206 @@
+terminal_source: usb
+software_timer:
+  priority: 2
+  stack_depth: 512
+SPI:
+  spi1:
+    tx_buffer_size: 32
+    rx_buffer_size: 32
+    dma_enable_min_size: 3
+I2C:
+  i2c1:
+    buffer_size: 32
+    dma_enable_min_size: 3
+  i2c2:
+    buffer_size: 32
+    dma_enable_min_size: 3
+  i2c3:
+    buffer_size: 32
+    dma_enable_min_size: 3
+USART:
+  usart1:
+    tx_buffer_size: 128
+    rx_buffer_size: 128
+    tx_queue_size: 5
+    rx_queue_size: 5
+  usart3:
+    tx_buffer_size: 128
+    rx_buffer_size: 128
+    tx_queue_size: 5
+    rx_queue_size: 5
+  usart6:
+    tx_buffer_size: 128
+    rx_buffer_size: 128
+    tx_queue_size: 5
+    rx_queue_size: 5
+ADC:
+  adc1:
+    buffer_size: 128
+    vref: 3.3
+  adc3:
+    buffer_size: 128
+    vref: 3.3
+Terminal:
+  READ_BUFF_SIZE: 32
+  MAX_LINE_SIZE: 32
+  MAX_ARG_NUMBER: 5
+  MAX_HISTORY_NUMBER: 5
+SYSTEM: FreeRTOS
+device_aliases:
+  power_manager:
+    type: PowerManager
+    aliases:
+    - power_manager
+  USER_KEY:
+    type: GPIO
+    aliases:
+    - USER_KEY
+  ACCL_CS:
+    type: GPIO
+    aliases:
+    - bmi088_accl_cs
+  GYRO_CS:
+    type: GPIO
+    aliases:
+    - bmi088_gyro_cs
+  HW0:
+    type: GPIO
+    aliases:
+    - HW0
+  HW1:
+    type: GPIO
+    aliases:
+    - HW1
+  HW2:
+    type: GPIO
+    aliases:
+    - HW2
+  ACCL_INT:
+    type: GPIO
+    aliases:
+    - bmi088_accl_int
+  GYRO_INT:
+    type: GPIO
+    aliases:
+    - bmi088_gyro_int
+  spi1:
+    type: SPI
+    aliases:
+    - spi_bmi088
+  pwm_tim10_ch1:
+    type: PWM
+    aliases:
+    - pwm_bmi088_heat
+  CMPS_INT:
+    type: GPIO
+    aliases:
+    - CMPS_INT
+  CMPS_RST:
+    type: GPIO
+    aliases:
+    - CMPS_RST
+  LED_B:
+    type: GPIO
+    aliases:
+    - LED
+    - LED_B
+  LED_G:
+    type: GPIO
+    aliases:
+    - LED_G
+  LED_R:
+    type: GPIO
+    aliases:
+    - LED_R
+  pwm_tim1_ch1:
+    type: PWM
+    aliases:
+    - pwm_tim1_ch1
+  pwm_tim1_ch2:
+    type: PWM
+    aliases:
+    - pwm_tim1_ch2
+  pwm_tim1_ch3:
+    type: PWM
+    aliases:
+    - pwm_tim1_ch3
+  pwm_tim1_ch4:
+    type: PWM
+    aliases:
+    - pwm_tim1_ch4
+  pwm_tim3_ch3:
+    type: PWM
+    aliases:
+    - pwm_tim3_ch3
+  pwm_tim4_ch3:
+    type: PWM
+    aliases:
+    - pwm_tim4_ch3
+  pwm_tim8_ch1:
+    type: PWM
+    aliases:
+    - pwm_tim8_ch1
+  pwm_tim8_ch2:
+    type: PWM
+    aliases:
+    - pwm_tim8_ch2
+  pwm_tim8_ch3:
+    type: PWM
+    aliases:
+    - pwm_tim8_ch3
+  adc1_adc_channel_tempsensor:
+    type: ADC
+    aliases:
+    - adc1_adc_channel_tempsensor
+  adc1_adc_channel_vrefint:
+    type: ADC
+    aliases:
+    - adc1_adc_channel_vrefint
+  adc3_adc_channel_8:
+    type: ADC
+    aliases:
+    - adc3_adc_channel_8
+  usart1:
+    type: UART
+    aliases:
+    - usart1
+  usart3:
+    type: UART
+    aliases:
+    - usart3
+  usart6:
+    type: UART
+    aliases:
+    - usart6
+  i2c1:
+    type: I2C
+    aliases:
+    - i2c1
+  i2c2:
+    type: I2C
+    aliases:
+    - i2c2
+  i2c3:
+    type: I2C
+    aliases:
+    - i2c3
+  can1:
+    type: CAN
+    aliases:
+    - can1
+  can2:
+    type: CAN
+    aliases:
+    - can2
+  uart_cdc:
+    type: UART
+    aliases:
+    - uart_cdc
+  ramfs:
+    type: RamFS
+    aliases:
+    - ramfs
+  terminal:
+    type: Terminal<32, 32, 5, 5>
+    aliases:
+    - terminal
