@@ -23,3 +23,11 @@ modules:
     accl_topic_name: bmi088_accl
     target_temperature: 45
     task_stack_depth: 512
+- name: MadgwickAHRS
+  constructor_args:
+    beta: 0.033
+    gyro_topic_name: bmi088_gyro
+    accl_topic_name: bmi088_accl
+    quaternion_topic_name: ahrs_quaternion
+    euler_topic_name: ahrs_euler
+    task_stack_depth: 512

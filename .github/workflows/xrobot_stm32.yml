@@ -23,7 +23,7 @@ jobs:
     - name: config libxr
       run: xr_cubemx_cfg -d ./ -c --xrobot
     - name: config xrobot
-      run: xrobot_setup && xrobot_setup
+      run: xrobot_init_mod --config https://raw.githubusercontent.com/QDU-Robomaster/dev-c-robots/refs/heads/main/test.yaml --dir .\Modules\ && xrobot_setup
     - name: config cmake
       run: cmake . -DDEV_C_TEST_BUILD=True -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja
     - name: build
