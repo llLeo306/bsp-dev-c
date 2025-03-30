@@ -22,9 +22,11 @@ jobs:
       run: pip install libxr xrobot
     - name: config libxr
       run: xr_cubemx_cfg -d ./ -c --xrobot
-    - name: config xrobot
+    - name: config xrobot module
       run: xrobot_init_mod --config https://raw.githubusercontent.com/QDU-Robomaster/dev-c-robots/refs/heads/main/test.yaml --dir .\Modules\ && xrobot_setup
+    - name: xrobot generate code
+      run: xrobot_setup
     - name: config cmake
-      run: cmake . -DDEV_C_TEST_BUILD=True -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja
+      run: cmake . -DCMAKE_TOOLCHAIN_FILE:STRING=cmake/gcc-arm-none-eabi.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE -Bbuild -G Ninja
     - name: build
       run: cmake --build build
