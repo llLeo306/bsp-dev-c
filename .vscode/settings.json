@@ -4,9 +4,6 @@
         "CMAKE_TOOLCHAIN_FILE": "cmake/gcc-arm-none-eabi.cmake",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
     },
-    "cmake.preferredGenerators": [
-        "Ninja"
-    ],
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,
     "files.trimFinalNewlines": true,
@@ -49,5 +46,7 @@
     "clangd.path": "clangd",
     "editor.inlayHints.enabled": "offUnlessPressed",
     "cmake.options.statusBarVisibility": "visible",
-    "cmake.generator": "Ninja",
+    "cmake.parallelJobs": 8,
+    "cmake.ctest.allowParallelJobs": true,
+    "cmake.ctest.parallelJobs": 8,
 }
