@@ -40,3 +40,8 @@ modules:
       z: 0.0
     topic_name: ist8310_mag
     task_stack_depth: 384
+- name: BuzzerAlarm
+  constructor_args:
+    alarm_freq: 1500
+    alarm_duration: 300
+    alarm_delay: 300
