@@ -186,7 +186,7 @@ device_aliases:
   i2c3:
     type: I2C
     aliases:
-    - ist8310_i2c
+    - i2c_ist8310
   can1:
     type: CAN
     aliases:

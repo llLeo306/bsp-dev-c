@@ -213,7 +213,7 @@ extern "C" void app_main(void) {
     {usart6, {"uart_ai", "uart_ext_controller"}},
     {i2c1, {"i2c1"}},
     {i2c2, {"i2c2"}},
-    {i2c3, {"ist8310_i2c"}},
+    {i2c3, {"i2c_ist8310"}},
     {can1, {"can1"}},
     {can2, {"can2"}},
     {uart_cdc, {"uart_cdc"}},

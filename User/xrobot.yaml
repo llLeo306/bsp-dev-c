@@ -31,3 +31,12 @@ modules:
     quaternion_topic_name: ahrs_quaternion
     euler_topic_name: ahrs_euler
     task_stack_depth: 512
+- name: IST8310
+  constructor_args:
+    rotation:
+      w: 1.0
+      x: 0.0
+      y: 0.0
+      z: 0.0
+    topic_name: ist8310_mag
+    task_stack_depth: 384
