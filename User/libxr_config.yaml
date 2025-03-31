@@ -34,9 +34,6 @@ USART:
     tx_queue_size: 5
     rx_queue_size: 5
 ADC:
-  adc1:
-    buffer_size: 128
-    vref: 3.3
   adc3:
     buffer_size: 128
     vref: 3.3
@@ -150,14 +147,6 @@ device_aliases:
     type: PWM
     aliases:
     - pwm_g
-  adc1_adc_channel_tempsensor:
-    type: ADC
-    aliases:
-    - adc1_adc_channel_tempsensor
-  adc1_adc_channel_vrefint:
-    type: ADC
-    aliases:
-    - adc1_adc_channel_vrefint
   adc3_adc_channel_8:
     type: ADC
     aliases:

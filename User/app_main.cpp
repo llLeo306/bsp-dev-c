@@ -21,7 +21,6 @@ using namespace LibXR;
 #include "stm32_flash.hpp"
 /* User Code End 1 */
 /* External HAL Declarations */
-extern ADC_HandleTypeDef hadc1;
 extern ADC_HandleTypeDef hadc3;
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
@@ -45,7 +44,6 @@ extern uint8_t UserRxBufferFS[APP_RX_DATA_SIZE];
 extern uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 
 /* DMA Resources */
-static uint8_t adc1_buf[128];
 static uint8_t adc3_buf[128];
 static uint8_t spi1_tx_buf[32];
 static uint8_t spi1_rx_buf[32];
@@ -80,13 +78,6 @@ extern "C" void app_main(void) {
   STM32GPIO LED_B(LED_B_GPIO_Port, LED_B_Pin);
   STM32GPIO LED_G(LED_G_GPIO_Port, LED_G_Pin);
   STM32GPIO LED_R(LED_R_GPIO_Port, LED_R_Pin);
-
-  std::array<uint32_t, 2> adc1_channels = {ADC_CHANNEL_TEMPSENSOR, ADC_CHANNEL_VREFINT};
-  STM32ADC adc1(&hadc1, adc1_buf, adc1_channels, 3.3);
-  auto adc1_adc_channel_tempsensor = adc1.GetChannel(0);
-  UNUSED(adc1_adc_channel_tempsensor);
-  auto adc1_adc_channel_vrefint = adc1.GetChannel(1);
-  UNUSED(adc1_adc_channel_vrefint);
 
   std::array<uint32_t, 1> adc3_channels = {ADC_CHANNEL_8};
   STM32ADC adc3(&hadc3, adc3_buf, adc3_channels, 3.3);
@@ -166,8 +157,6 @@ extern "C" void app_main(void) {
     LibXR::Entry<LibXR::PWM>,
     LibXR::Entry<LibXR::PWM>,
     LibXR::Entry<LibXR::ADC>,
-    LibXR::Entry<LibXR::ADC>,
-    LibXR::Entry<LibXR::ADC>,
     LibXR::Entry<LibXR::UART>,
     LibXR::Entry<LibXR::UART>,
     LibXR::Entry<LibXR::UART>,
@@ -205,8 +194,6 @@ extern "C" void app_main(void) {
     {pwm_tim8_ch1, {"pwm_e"}},
     {pwm_tim8_ch2, {"pwm_f"}},
     {pwm_tim8_ch3, {"pwm_g"}},
-    {adc1_adc_channel_tempsensor, {"adc1_adc_channel_tempsensor"}},
-    {adc1_adc_channel_vrefint, {"adc1_adc_channel_vrefint"}},
     {adc3_adc_channel_8, {"adc_bat"}},
     {usart1, {"uart_referee"}},
     {usart3, {"uart_dr16"}},

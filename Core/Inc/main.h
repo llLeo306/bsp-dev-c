@@ -55,7 +55,6 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 void MX_GPIO_Init(void);
 void MX_DMA_Init(void);
-void MX_ADC1_Init(void);
 void MX_ADC3_Init(void);
 void MX_CAN1_Init(void);
 void MX_CAN2_Init(void);
