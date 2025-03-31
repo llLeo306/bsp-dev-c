@@ -55,6 +55,7 @@ device_aliases:
     type: GPIO
     aliases:
     - USER_KEY
+    - wakeup_key
   ACCL_CS:
     type: GPIO
     aliases:
@@ -94,11 +95,11 @@ device_aliases:
   CMPS_INT:
     type: GPIO
     aliases:
-    - CMPS_INT
+    - ist8310_int
   CMPS_RST:
     type: GPIO
     aliases:
-    - CMPS_RST
+    - ist8310_rst
   LED_B:
     type: GPIO
     aliases:
@@ -115,39 +116,40 @@ device_aliases:
   pwm_tim1_ch1:
     type: PWM
     aliases:
-    - pwm_tim1_ch1
+    - pwm_a
+    - pwm_launcher_cover_servo
   pwm_tim1_ch2:
     type: PWM
     aliases:
-    - pwm_tim1_ch2
+    - pwm_b
   pwm_tim1_ch3:
     type: PWM
     aliases:
-    - pwm_tim1_ch3
+    - pwm_c
   pwm_tim1_ch4:
     type: PWM
     aliases:
-    - pwm_tim1_ch4
+    - pwm_d
   pwm_tim3_ch3:
     type: PWM
     aliases:
-    - pwm_tim3_ch3
+    - pwm_5v
   pwm_tim4_ch3:
     type: PWM
     aliases:
-    - pwm_tim4_ch3
+    - pwm_buzzer
   pwm_tim8_ch1:
     type: PWM
     aliases:
-    - pwm_tim8_ch1
+    - pwm_e
   pwm_tim8_ch2:
     type: PWM
     aliases:
-    - pwm_tim8_ch2
+    - pwm_f
   pwm_tim8_ch3:
     type: PWM
     aliases:
-    - pwm_tim8_ch3
+    - pwm_g
   adc1_adc_channel_tempsensor:
     type: ADC
     aliases:
@@ -159,19 +161,20 @@ device_aliases:
   adc3_adc_channel_8:
     type: ADC
     aliases:
-    - adc3_adc_channel_8
+    - adc_bat
   usart1:
     type: UART
     aliases:
-    - usart1
+    - uart_referee
   usart3:
     type: UART
     aliases:
-    - usart3
+    - uart_dr16
   usart6:
     type: UART
     aliases:
-    - usart6
+    - uart_ai
+    - uart_ext_controller
   i2c1:
     type: I2C
     aliases:
@@ -183,7 +186,7 @@ device_aliases:
   i2c3:
     type: I2C
     aliases:
-    - i2c3
+    - ist8310_i2c
   can1:
     type: CAN
     aliases:
