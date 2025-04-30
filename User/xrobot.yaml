@@ -6,6 +6,10 @@ modules:
     blink_cycle: 250
 - name: BMI088
   constructor_args:
+    gyro_freq: BMI088<HardwareContainer>::GyroFreq::GYRO_1000HZ_BW116HZ
+    accl_freq: BMI088<HardwareContainer>::AcclFreq::ACCL_800HZ
+    gyro_range: BMI088<HardwareContainer>::GyroRange::DEG_2000DPS
+    accl_range: BMI088<HardwareContainer>::AcclRange::ACCL_24G
     rotation:
       w: 1.0
       x: 0.0
@@ -31,15 +35,6 @@ modules:
     quaternion_topic_name: ahrs_quaternion
     euler_topic_name: ahrs_euler
     task_stack_depth: 512
-- name: IST8310
-  constructor_args:
-    rotation:
-      w: 1.0
-      x: 0.0
-      y: 0.0
-      z: 0.0
-    topic_name: ist8310_mag
-    task_stack_depth: 384
 - name: BuzzerAlarm
   constructor_args:
     alarm_freq: 1500

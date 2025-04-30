@@ -1,4 +1,5 @@
 #include "app_main.h"
+
 #include "libxr.hpp"
 #include "main.h"
 #include "stm32_adc.hpp"
@@ -12,8 +13,10 @@
 #include "stm32_timebase.hpp"
 #include "stm32_uart.hpp"
 #include "stm32_usb.hpp"
+#include "flash_map.hpp"
 #include "app_framework.hpp"
 #include "xrobot_main.hpp"
+
 
 using namespace LibXR;
 
@@ -44,7 +47,7 @@ extern uint8_t UserRxBufferFS[APP_RX_DATA_SIZE];
 extern uint8_t UserTxBufferFS[APP_TX_DATA_SIZE];
 
 /* DMA Resources */
-static uint8_t adc3_buf[128];
+static uint16_t adc3_buf[64];
 static uint8_t spi1_tx_buf[32];
 static uint8_t spi1_rx_buf[32];
 static uint8_t usart1_tx_buf[128];
@@ -120,7 +123,7 @@ extern "C" void app_main(void) {
 
   STM32CAN can2(&hcan2, "can2", 5);
 
-  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 5, 5);
+  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 12, 12);
   STDIO::read_ = &uart_cdc.read_port_;
   STDIO::write_ = &uart_cdc.write_port_;
   RamFS ramfs("XRobot");
@@ -209,8 +212,8 @@ extern "C" void app_main(void) {
   };
 
   /* User Code Begin 3 */
-  STM32F4Flash flash(0xC0000, 128 * 1024, 4);
-  LibXR::DatabaseRaw<4> database(flash);
+  STM32Flash<FLASH_SECTOR_NUMBER, FLASH_SECTOR_NUMBER - 1> flash(FLASH_SECTORS);
+  LibXR::DatabaseRaw<1> database(flash);
 
   peripherals.Register(LibXR::Entry<LibXR::Database>{database, {"database"}});
 
