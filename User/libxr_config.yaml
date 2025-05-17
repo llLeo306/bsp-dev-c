@@ -43,13 +43,16 @@ CAN:
   CAN2:
     queue_size: 5
 USB:
-  tx_queue_size: 12
-  rx_queue_size: 12
+  tx_queue_size: 30
+  rx_queue_size: 10
 Terminal:
   READ_BUFF_SIZE: 32
   MAX_LINE_SIZE: 32
   MAX_ARG_NUMBER: 5
   MAX_HISTORY_NUMBER: 5
+  RunAsThread: true
+  ThreadStackDepth: 512
+  ThreadPriority: 3
 SYSTEM: FreeRTOS
 device_aliases:
   power_manager:
@@ -162,6 +165,7 @@ device_aliases:
   usart1:
     type: UART
     aliases:
+    - imu_data_uart
     - uart_referee
   usart3:
     type: UART
@@ -188,6 +192,7 @@ device_aliases:
     type: CAN
     aliases:
     - can1
+    - imu_can
   can2:
     type: CAN
     aliases:

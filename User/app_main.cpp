@@ -61,7 +61,7 @@ static uint8_t i2c3_buf[32];
 
 extern "C" void app_main(void) {
   /* User Code Begin 2 */
-  
+
   /* User Code End 2 */
   STM32TimerTimebase timebase(&htim2);
   PlatformInit(2, 512);
@@ -119,18 +119,18 @@ extern "C" void app_main(void) {
 
   STM32I2C i2c3(&hi2c3, i2c3_buf, 3);
 
-  STM32CAN can1(&hcan1, "can1", 5);
+  STM32CAN can1(&hcan1, 5);
 
-  STM32CAN can2(&hcan2, "can2", 5);
+  STM32CAN can2(&hcan2, 5);
 
-  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 12, 12);
+  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 10, 30);
   STDIO::read_ = &uart_cdc.read_port_;
   STDIO::write_ = &uart_cdc.write_port_;
   RamFS ramfs("XRobot");
   Terminal<32, 32, 5, 5> terminal(ramfs);
-  auto terminal_task = Timer::CreateTask(terminal.TaskFun, &terminal, 10);
-  Timer::Add(terminal_task);
-  Timer::Start(terminal_task);
+  LibXR::Thread term_thread;
+  term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 512,
+                     static_cast<LibXR::Thread::Priority>(3));
 
 
   LibXR::HardwareContainer peripherals{
@@ -160,13 +160,13 @@ extern "C" void app_main(void) {
     LibXR::Entry<LibXR::PWM>({pwm_tim8_ch2, {"pwm_f"}}),
     LibXR::Entry<LibXR::PWM>({pwm_tim8_ch3, {"pwm_g"}}),
     LibXR::Entry<LibXR::ADC>({adc3_adc_channel_8, {"adc_bat"}}),
-    LibXR::Entry<LibXR::UART>({usart1, {"uart_referee"}}),
+    LibXR::Entry<LibXR::UART>({usart1, {"imu_data_uart", "uart_referee"}}),
     LibXR::Entry<LibXR::UART>({usart3, {"uart_dr16"}}),
     LibXR::Entry<LibXR::UART>({usart6, {"uart_ai", "uart_ext_controller"}}),
     LibXR::Entry<LibXR::I2C>({i2c1, {"i2c1"}}),
     LibXR::Entry<LibXR::I2C>({i2c2, {"i2c2"}}),
     LibXR::Entry<LibXR::I2C>({i2c3, {"i2c_ist8310"}}),
-    LibXR::Entry<LibXR::CAN>({can1, {"can1"}}),
+    LibXR::Entry<LibXR::CAN>({can1, {"can1", "imu_can"}}),
     LibXR::Entry<LibXR::CAN>({can2, {"can2"}}),
     LibXR::Entry<LibXR::UART>({uart_cdc, {"uart_cdc"}}),
     LibXR::Entry<LibXR::RamFS>({ramfs, {"ramfs"}}),
@@ -178,7 +178,7 @@ extern "C" void app_main(void) {
   LibXR::DatabaseRaw<1> database(flash);
 
   peripherals.Register(LibXR::Entry<LibXR::Database>{database, {"database"}});
-
   XRobotMain(peripherals);
+
   /* User Code End 3 */
 }
