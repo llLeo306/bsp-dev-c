@@ -61,10 +61,10 @@ static uint8_t i2c3_buf[32];
 
 extern "C" void app_main(void) {
   /* User Code Begin 2 */
-
+  
   /* User Code End 2 */
   STM32TimerTimebase timebase(&htim2);
-  PlatformInit(2, 512);
+  PlatformInit(2, 1024);
   STM32PowerManager power_manager;
 
   /* GPIO Configuration */
@@ -105,13 +105,13 @@ extern "C" void app_main(void) {
   STM32SPI spi1(&hspi1, spi1_rx_buf, spi1_tx_buf, 3);
 
   STM32UART usart1(&huart1,
-              usart1_rx_buf, usart1_tx_buf, 5, 5);
+              usart1_rx_buf, usart1_tx_buf, 5);
 
   STM32UART usart3(&huart3,
-              usart3_rx_buf, {nullptr, 0}, 5, 5);
+              usart3_rx_buf, {nullptr, 0}, 5);
 
   STM32UART usart6(&huart6,
-              usart6_rx_buf, usart6_tx_buf, 5, 5);
+              usart6_rx_buf, usart6_tx_buf, 5);
 
   STM32I2C i2c1(&hi2c1, i2c1_buf, 3);
 
@@ -123,13 +123,13 @@ extern "C" void app_main(void) {
 
   STM32CAN can2(&hcan2, 5);
 
-  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 10, 30);
-  STDIO::read_ = &uart_cdc.read_port_;
-  STDIO::write_ = &uart_cdc.write_port_;
+  STM32VirtualUART uart_cdc(hUsbDeviceFS, UserTxBufferFS, UserRxBufferFS, 15);
+  STDIO::read_ = uart_cdc.read_port_;
+  STDIO::write_ = uart_cdc.write_port_;
   RamFS ramfs("XRobot");
   Terminal<32, 32, 5, 5> terminal(ramfs);
   LibXR::Thread term_thread;
-  term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 512,
+  term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 4096,
                      static_cast<LibXR::Thread::Priority>(3));
 
 
@@ -179,6 +179,5 @@ extern "C" void app_main(void) {
 
   peripherals.Register(LibXR::Entry<LibXR::Database>{database, {"database"}});
   XRobotMain(peripherals);
-
   /* User Code End 3 */
 }

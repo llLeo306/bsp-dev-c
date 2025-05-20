@@ -1,7 +1,7 @@
 terminal_source: usb
 software_timer:
   priority: 2
-  stack_depth: 512
+  stack_depth: 1024
 SPI:
   spi1:
     tx_buffer_size: 32
@@ -22,17 +22,14 @@ USART:
     tx_buffer_size: 128
     rx_buffer_size: 128
     tx_queue_size: 5
-    rx_queue_size: 5
   usart3:
     tx_buffer_size: 128
     rx_buffer_size: 128
     tx_queue_size: 5
-    rx_queue_size: 5
   usart6:
     tx_buffer_size: 128
     rx_buffer_size: 128
     tx_queue_size: 5
-    rx_queue_size: 5
 ADC:
   adc3:
     buffer_size: 128
@@ -43,15 +40,14 @@ CAN:
   CAN2:
     queue_size: 5
 USB:
-  tx_queue_size: 30
-  rx_queue_size: 10
+  tx_queue_size: 15
 Terminal:
   READ_BUFF_SIZE: 32
   MAX_LINE_SIZE: 32
   MAX_ARG_NUMBER: 5
   MAX_HISTORY_NUMBER: 5
   RunAsThread: true
-  ThreadStackDepth: 512
+  ThreadStackDepth: 1536
   ThreadPriority: 3
 SYSTEM: FreeRTOS
 device_aliases:
