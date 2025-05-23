@@ -53,8 +53,8 @@ static uint8_t spi1_rx_buf[32];
 static uint8_t usart1_tx_buf[128];
 static uint8_t usart1_rx_buf[128];
 static uint8_t usart3_rx_buf[128];
-static uint8_t usart6_tx_buf[128];
-static uint8_t usart6_rx_buf[128];
+static uint8_t usart6_tx_buf[512];
+static uint8_t usart6_rx_buf[512];
 static uint8_t i2c1_buf[32];
 static uint8_t i2c2_buf[32];
 static uint8_t i2c3_buf[32];
@@ -64,7 +64,7 @@ extern "C" void app_main(void) {
   
   /* User Code End 2 */
   STM32TimerTimebase timebase(&htim2);
-  PlatformInit(2, 1024);
+  PlatformInit(2, 2048);
   STM32PowerManager power_manager;
 
   /* GPIO Configuration */
@@ -111,7 +111,7 @@ extern "C" void app_main(void) {
               usart3_rx_buf, {nullptr, 0}, 5);
 
   STM32UART usart6(&huart6,
-              usart6_rx_buf, usart6_tx_buf, 5);
+              usart6_rx_buf, usart6_tx_buf, 15);
 
   STM32I2C i2c1(&hi2c1, i2c1_buf, 3);
 
@@ -129,7 +129,7 @@ extern "C" void app_main(void) {
   RamFS ramfs("XRobot");
   Terminal<32, 32, 5, 5> terminal(ramfs);
   LibXR::Thread term_thread;
-  term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 4096,
+  term_thread.Create(&terminal, terminal.ThreadFun, "terminal", 2048,
                      static_cast<LibXR::Thread::Priority>(3));
 
 
